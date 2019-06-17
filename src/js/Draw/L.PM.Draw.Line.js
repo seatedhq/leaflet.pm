@@ -330,6 +330,7 @@ Draw.Line = Draw.extend({
     const marker = new L.Marker(latlng, {
       draggable: false,
       icon: L.divIcon({ className: 'marker-icon' }),
+      bubblingMouseEvents: false,
     });
     marker._pmTempLayer = true;
 
