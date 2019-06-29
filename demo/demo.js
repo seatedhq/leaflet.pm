@@ -26,9 +26,8 @@ const mapboxTiles3 = L.tileLayer(
   }
 );
 
-const map2 = L.map('example2')
-  .setView([51.505, -0.09], 13)
-  .addLayer(mapboxTiles1);
+const map2 = L.map('example2').setView([51.505, -0.09], 13);
+// .addLayer(mapboxTiles1);
 const map3 = L.map('example3')
   .setView([51.505, -0.09], 13)
   .addLayer(mapboxTiles2);
@@ -65,7 +64,7 @@ const m1 = L.circleMarker([51.50313, -0.091223], { radius: 10 });
 const m2 = L.marker([51.50614, -0.0989]);
 const m3 = L.marker([51.50915, -0.096112], { pmIgnore: true });
 
-const mGroup = L.layerGroup([m1, m2, m3]).addTo(map2);
+// const mGroup = L.layerGroup([m1, m2, m3]).addTo(map2);
 // mGroup.pm.enable();
 
 map2.pm.addControls({
@@ -107,7 +106,12 @@ map2.pm.addControls({
 // map2.pm.enableDraw('Polygon', { allowSelfIntersection: false });
 
 map2.on('pm:globaleditmodetoggled', function(e) {
-  // console.log(e);
+  console.log(e);
+});
+
+map2.on('pm:create', function(e) {
+  const { layer } = e;
+  layer.on('click', () => layer.pm.enable());
 });
 
 // GEOSJON EXAMPLE
@@ -198,18 +202,20 @@ const geoJsonData = {
   ],
 };
 
-const theCollection = L.geoJson(geoJsonData, {
-  pointToLayer: (feature, latlng) => {
-    if (feature.properties.customGeometry) {
-      return new L.Circle(latlng, feature.properties.customGeometry.radius);
-    } else {
-      return new L.Marker(latlng);
-    }
-  },
-  // onEachFeature: (feature, layer) => {
-  //     layer.addTo(map2);
-  // },
-});
+// const theCollection = L.geoJson(geoJsonData, {
+//   pointToLayer: (feature, latlng) => {
+//     if (feature.properties.customGeometry) {
+//       return new L.Circle(latlng, feature.properties.customGeometry.radius);
+//     } else {
+//       return new L.Marker(latlng);
+//     }
+//   },
+// onEachFeature: (feature, layer) => {
+//     layer.addTo(map2);
+// },
+// });
+
+console.log('the Collection', theCollection);
 
 theCollection.addTo(map2);
 
@@ -296,6 +302,7 @@ map2.on('pm:drawstart', function(e) {
 });
 map2.on('pm:create', function(e) {
   var layer = e.layer;
+  console.log(layer);
   // console.log(layer);
   layer.on('pm:centerplaced', function(e) {
     // console.log(e);

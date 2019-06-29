@@ -108,7 +108,7 @@ Edit.Line = Edit.extend({
 
     // remove draggable class
     const el = poly._path ? poly._path : this._layer._renderer._container;
-    L.DomUtil.removeClass(el, 'leaflet-pm-draggable');
+    // L.DomUtil.removeClass(el, 'leaflet-pm-draggable');
 
     // remove invalid class if layer has self intersection
     if (this.hasSelfIntersection()) {
@@ -224,6 +224,7 @@ Edit.Line = Edit.extend({
     const marker = new L.Marker(latlng, {
       draggable: true,
       icon: L.divIcon({ className: 'marker-icon' }),
+      bubblingMouseEvents: false,
     });
 
     marker._pmTempLayer = true;

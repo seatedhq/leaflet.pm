@@ -56,6 +56,7 @@ Draw.Polygon = Draw.Line.extend({
     const marker = new L.Marker(latlng, {
       draggable: false,
       icon: L.divIcon({ className: 'marker-icon' }),
+      bubblingMouseEvents: false,
     });
 
     // mark this marker as temporary

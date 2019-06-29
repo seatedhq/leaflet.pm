@@ -176,6 +176,7 @@ Edit.Circle = Edit.extend({
     const marker = new L.Marker(latlng, {
       draggable: true,
       icon: L.divIcon({ className: 'marker-icon' }),
+      bubblingMouseEvents: false,
     });
 
     marker._origLatLng = latlng;
