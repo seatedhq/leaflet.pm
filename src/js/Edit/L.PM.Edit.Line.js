@@ -93,8 +93,8 @@ Edit.Line = Edit.extend({
     poly.pm._markerGroup.clearLayers();
 
     // clean up draggable
-    poly.off('mousedown');
-    poly.off('mouseup');
+    // poly.off('mousedown');
+    // poly.off('mouseup');
 
     // remove onRemove listener
     this._layer.off('remove', this._onLayerRemove, this);

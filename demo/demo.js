@@ -9,6 +9,7 @@ const mapboxTiles1 = L.tileLayer(
   {
     attribution:
       '&copy; <a href="https://www.mapbox.com/feedback/">Mapbox</a> &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+    interactive: true,
   }
 );
 const mapboxTiles2 = L.tileLayer(
@@ -26,14 +27,16 @@ const mapboxTiles3 = L.tileLayer(
   }
 );
 
-const map2 = L.map('example2').setView([51.505, -0.09], 13);
-// .addLayer(mapboxTiles1);
+const map2 = L.map('example2')
+  .setView([51.505, -0.09], 13)
+  .addLayer(mapboxTiles1);
 const map3 = L.map('example3')
   .setView([51.505, -0.09], 13)
   .addLayer(mapboxTiles2);
 const map4 = L.map('example4')
   .setView([51.505, -0.09], 13)
   .addLayer(mapboxTiles3);
+
 // map2.dragging.disable();
 
 // map2.on('pm:create', function(e) {
@@ -112,7 +115,12 @@ map2.on('pm:globaleditmodetoggled', function(e) {
 map2.on('pm:create', function(e) {
   const { layer } = e;
   layer.on('click', () => layer.pm.enable());
+  map2.pm.enableGlobalDragMode();
+  layer.bubblingMouseEvents = false;
 });
+
+// mapboxTiles1.on('click', () => map2.pm.disableGlobalEditMode());
+mapboxTiles1.on('click', () => console.log('tiles'));
 
 // GEOSJON EXAMPLE
 const geoJsonData = {
